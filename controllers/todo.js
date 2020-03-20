@@ -1,5 +1,5 @@
 const todoModel = require('../model/todo')
 
-exports.createToDo = () => {
-  todoModel.create()
+exports.createToDo = (req, res, next) => {
+  todoModel.hello(req.body)
 }
