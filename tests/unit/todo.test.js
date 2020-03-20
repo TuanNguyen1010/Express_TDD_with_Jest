@@ -3,7 +3,7 @@ const ToDoModel = require('../../model/todo')
 const httpMocks = require('node-mocks-http')
 const toDoMocks = require('../mocks/toDoMock')
 
-ToDoModel.hello = jest.fn()
+ToDoModel.create = jest.fn()
 
 describe('ToDoController.createToDo', () => {
   it('should have a createToDo function', () => {
@@ -16,6 +16,6 @@ describe('ToDoController.createToDo', () => {
     next = null;
     req.body = toDoMocks;
     ToDoController.createToDo(req, res, next)
-    expect(ToDoModel.hello).toBeCalledWith(toDoMocks)
+    expect(ToDoModel.create).toBeCalledWith(toDoMocks)
   })
 } )
