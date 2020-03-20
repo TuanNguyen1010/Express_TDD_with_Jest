@@ -28,10 +28,5 @@ mongoose.connect(
 mongoose.connection.on('error', err => {
   console.log(`DB connection error: ${err.message}`)
 });
-const port = 8000
-
-// app.listen(port, () => {
-//   console.log(`server is runing on port ${port}`)
-// })
 
 module.exports = app;
