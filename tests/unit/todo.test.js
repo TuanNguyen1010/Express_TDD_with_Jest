@@ -31,4 +31,9 @@ describe('ToDoController.createToDo', () => {
     expect(res.statusCode).toBe(201);
     expect(res._isEndCalled()).toBeTruthy()
   })
+  it('should return Json body in response', () => {
+    ToDoModel.create.mockReturnValue(toDoMocks);
+    ToDoController.createToDo(req, res, next);
+    expect(res._getJSONData()).toStrictEqual(toDoMocks)
+  })
 } )
