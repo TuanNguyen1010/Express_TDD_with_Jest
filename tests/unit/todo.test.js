@@ -26,14 +26,14 @@ describe('ToDoController.createToDo', () => {
     ToDoController.createToDo(req, res, next)
     expect(ToDoModel.create).toBeCalledWith(toDoMocks)
   })
-  it('should return a status code of 201', () => {
-    ToDoController.createToDo(req, res, next)
+  it('should return a status code of 201', async () => {
+    await ToDoController.createToDo(req, res, next)
     expect(res.statusCode).toBe(201);
     expect(res._isEndCalled()).toBeTruthy()
   })
-  it('should return Json body in response', () => {
+  it('should return Json body in response', async () => {
     ToDoModel.create.mockReturnValue(toDoMocks);
-    ToDoController.createToDo(req, res, next);
+    await ToDoController.createToDo(req, res, next);
     expect(res._getJSONData()).toStrictEqual(toDoMocks)
   })
 } )
