@@ -14,17 +14,21 @@ beforeEach(() => {
 })
 
 describe('ToDoController.createToDo', () => {
+
+  beforeEach(() => {
+    req.body = toDoMocks;
+  })
+
   it('should have a createToDo function', () => {
     expect(typeof ToDoController.createToDo).toBe('function')
   })
   it('should call the todo model from controller', () => {
-    req.body = toDoMocks;
     ToDoController.createToDo(req, res, next)
     expect(ToDoModel.create).toBeCalledWith(toDoMocks)
   })
   it('should return a status code of 201', () => {
-    req.body = toDoMocks;
     ToDoController.createToDo(req, res, next)
-    expect(res.statusCode).toBe(201)
+    expect(res.statusCode).toBe(201);
+    expect(res._isEndCalled()).toBeTruthy()
   })
 } )
