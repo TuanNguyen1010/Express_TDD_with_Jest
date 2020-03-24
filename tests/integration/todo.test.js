@@ -6,10 +6,17 @@ const endpointUrl = "/todos/";
 describe(endpointUrl, () => {
   it("POST " + endpointUrl, async () => {
     const response = await request(app)
-        .post('/todos/')
+        .post(endpointUrl)
         .send(toDoMock);
       expect(response.statusCode).toBe(201);
       expect(response.body.title).toBe(toDoMock.title);
       expect(response.body.done).toBe(toDoMock.done);
+  })
+  it('should return error 500 on malformed data with POST' + endpointUrl,
+   async () => {
+    const response = await request(app)
+    .post(endpointUrl)
+    .send({ title: "Missing done property"});
+    expect(response.statusCode).toBe(500)
   })
 })
