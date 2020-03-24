@@ -42,6 +42,5 @@ describe('ToDoController.createToDo', () => {
     ToDoModel.create.mockReturnValue(rejectPromise)
     await ToDoController.createToDo(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
-
   })
 } )

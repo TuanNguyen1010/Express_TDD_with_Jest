@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require('../../app.js');
 const toDoMock = require("../mocks/toDoMock.json");
-const endpointUrl = "/todos/";
+const endpointUrl = "/todos";
 
 describe(endpointUrl, () => {
   it("POST " + endpointUrl, async () => {
@@ -18,5 +18,8 @@ describe(endpointUrl, () => {
     .post(endpointUrl)
     .send({ title: "Missing done property"});
     expect(response.statusCode).toBe(500)
+    expect(response.body).toStrictEqual({
+      message: 
+      "todo validation failed: done: Path `done` is required."})
   })
 })
