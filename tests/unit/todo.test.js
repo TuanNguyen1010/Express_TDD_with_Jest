@@ -26,8 +26,11 @@ describe('ToDoController.getToDo', () => {
     expect(ToDoModel.find).toHaveBeenCalledWith({})
   })
   it('return response with status 200', async () => {
+    ToDoModel.find.mockReturnValue(toDoMock)
     await ToDoController.getToDo(req, res, next)
     expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual(toDoMock)    
   })
 })
 
