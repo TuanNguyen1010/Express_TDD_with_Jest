@@ -9,6 +9,7 @@ describe(endpointUrl, () => {
     const response = await request(app)
       .get(endpointUrl)
     expect(response.statusCode).toBe(200)
+    expect(Array.isArray(response.body)).toBeTruthy()
   })
 
   it("POST " + endpointUrl, async () => {
@@ -19,6 +20,7 @@ describe(endpointUrl, () => {
       expect(response.body.title).toBe(createToDoMock.title);
       expect(response.body.done).toBe(createToDoMock.done);
   })
+
   it('should return error 500 on malformed data with POST' + endpointUrl,
    async () => {
     const response = await request(app)
