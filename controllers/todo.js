@@ -9,7 +9,11 @@ exports.createToDo = async (req, res, next) => {
   }
 }
 
-exports.getToDo = (req, res, next) => { 
-  const allToDo = todoModel.find({})
+exports.getToDo = async (req, res, next) => { 
+  try {
+  const allToDo = await todoModel.find({})
   res.json(allToDo)
+  } catch (err) {
+    next(err);
   }
+}

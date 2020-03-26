@@ -32,6 +32,13 @@ describe('ToDoController.getToDo', () => {
     expect(res._isEndCalled()).toBeTruthy();
     expect(res._getJSONData()).toStrictEqual(toDoMock)    
   })
+  it('should be able to handle error message', async () => {
+    const errorMessage = { message: "Unable to find any toDo list" };
+    const rejectPromise = Promise.reject(errorMessage)
+    ToDoModel.find.mockReturnValue(rejectPromise)
+    await ToDoController.getToDo(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
+  })
 })
 
 describe('ToDoController.createToDo', () => {
