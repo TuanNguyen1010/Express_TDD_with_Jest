@@ -25,6 +25,10 @@ describe('ToDoController.getToDo', () => {
     await ToDoController.getToDo(req, res, next);
     expect(ToDoModel.find).toHaveBeenCalledWith({})
   })
+  it('return response with status 200', async () => {
+    await ToDoController.getToDo(req, res, next)
+    expect(res.statusCode).toBe(200);
+  })
 })
 
 describe('ToDoController.createToDo', () => {

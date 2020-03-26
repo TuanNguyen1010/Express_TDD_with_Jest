@@ -9,6 +9,7 @@ exports.createToDo = async (req, res, next) => {
   }
 }
 
-exports.getToDo = (req, res, next) => { 
-  todoModel.find({})
+exports.getToDo = async (req, res, next) => { 
+  const getModel = await todoModel.find(req.body)
+  res.status(200).json(getModel)
   }
