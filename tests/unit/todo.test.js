@@ -13,6 +13,10 @@ beforeEach(() => {
   next = jest.fn();
 })
 
+describe('ToDoController.getToDo', () => {
+  expect(typeof ToDoController.getToDo).toBe('function')
+})
+
 describe('ToDoController.createToDo', () => {
 
   beforeEach(() => {
