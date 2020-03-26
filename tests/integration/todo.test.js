@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require('../../app.js');
-const toDoMock = require("../mocks/toDoMock.json");
+const toDoMock = require("../mocks/createToDoMock.json");
 const endpointUrl = "/todos";
 
 describe(endpointUrl, () => {
