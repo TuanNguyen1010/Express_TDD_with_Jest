@@ -1,16 +1,23 @@
 const request = require("supertest");
 const app = require('../../app.js');
-const toDoMock = require("../mocks/createToDoMock.json");
+const createToDoMock = require("../mocks/createToDoMock.json");
 const endpointUrl = "/todos";
 
 describe(endpointUrl, () => {
+
+  it("GET" + endpointUrl, async () => {
+    const response = await request(app)
+      .get(endpointUrl)
+    expect(response.statusCode).toBe(200)
+  })
+
   it("POST " + endpointUrl, async () => {
     const response = await request(app)
         .post(endpointUrl)
-        .send(toDoMock);
+        .send(createToDoMock);
       expect(response.statusCode).toBe(201);
-      expect(response.body.title).toBe(toDoMock.title);
-      expect(response.body.done).toBe(toDoMock.done);
+      expect(response.body.title).toBe(createToDoMock.title);
+      expect(response.body.done).toBe(createToDoMock.done);
   })
   it('should return error 500 on malformed data with POST' + endpointUrl,
    async () => {
