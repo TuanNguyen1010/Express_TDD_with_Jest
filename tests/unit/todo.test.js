@@ -6,6 +6,7 @@ const toDoMock = require('../mocks/toDoMock')
 
 ToDoModel.create = jest.fn()
 ToDoModel.find = jest.fn()
+ToDoModel.findById = jest.fn()
 
 let req, res, next;
 
@@ -19,6 +20,11 @@ describe('ToDoController.getToDobyId', () => {
   it('should have getToDoById function', () => {
     expect(typeof ToDoController.getToDoById).toBe('function')
   })
+
+  it('should call the findById method on todo Model', async () => {
+    await ToDoController.getToDoById(req, res, next)
+    expect(ToDoModel.findById).toHaveBeenCalledWith({})
+  })
 })
 
 describe('ToDoController.getToDo', () => {
@@ -26,7 +32,6 @@ describe('ToDoController.getToDo', () => {
   it('should have getToDo function', () => {
     expect(typeof ToDoController.getToDo).toBe('function')
   })
-
   it('should call the find method on todo Model', async () => {
     await ToDoController.getToDo(req, res, next);
     expect(ToDoModel.find).toHaveBeenCalledWith({})

@@ -18,4 +18,6 @@ exports.getToDo = async (req, res, next) => {
   }
 }
 
-exports.getToDoById = async (req, res, next) => {}
+exports.getToDoById = async (req, res, next) => {
+  await todoModel.findById({})
+}
