@@ -40,6 +40,13 @@ describe("ToDoController.findByIdAndUpdate", () => {
     expect(res._getJSONData()).toStrictEqual(createToDoMock) 
     expect(res._isEndCalled()).toBeTruthy();
   }) 
+it('shows error message when trying to update todo', async () => {
+    const errorMessage = { message: "Unable to update note" };
+    const rejectPromise = Promise.reject(errorMessage)
+    ToDoModel.findByIdAndUpdate.mockReturnValue(rejectPromise)
+    await ToDoController.updateToDo(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
+  })
 }) 
 
 describe('ToDoController.getToDobyId', () => {
@@ -60,7 +67,7 @@ describe('ToDoController.getToDobyId', () => {
     expect(res._getJSONData()).toStrictEqual(toDoMock) 
     expect(res._isEndCalled()).toBeTruthy();
   })
-  it('shows error message when there is error', async () => {
+  it('shows error message', async () => {
     const errorMessage = { message: "Unable to find any toDoId" };
     const rejectPromise = Promise.reject(errorMessage)
     ToDoModel.findById.mockReturnValue(rejectPromise)
