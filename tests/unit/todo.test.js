@@ -27,12 +27,19 @@ describe('ToDoController.getToDobyId', () => {
     expect(ToDoModel.findById).toBeCalledWith('5e81349fa145485171733cd1')
   })
 
-  it('should return json body and status code 200', async () => {
+  it('return json body and status code 200', async () => {
     ToDoModel.findById.mockReturnValue(toDoMock)
     await ToDoController.getToDoById(req, res, next)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toStrictEqual(toDoMock) 
     expect(res._isEndCalled()).toBeTruthy();
+  })
+  it('shows error message when unable to find toDo ID', async () => {
+    const errorMessage = { message: "Unable to find any toDoId" };
+    const rejectPromise = Promise.reject(errorMessage)
+    ToDoModel.findById.mockReturnValue(rejectPromise)
+    await ToDoController.getToDoById(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
   })
 })
 
