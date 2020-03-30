@@ -22,8 +22,9 @@ describe('ToDoController.getToDobyId', () => {
   })
 
   it('should call the findById method on todo Model', async () => {
+    req.params.todoId = '5e81349fa145485171733cd1'
     await ToDoController.getToDoById(req, res, next)
-    expect(ToDoModel.findById).toHaveBeenCalledWith({})
+    expect(ToDoModel.findById).toBeCalledWith('5e81349fa145485171733cd1')
   })
 })
 
