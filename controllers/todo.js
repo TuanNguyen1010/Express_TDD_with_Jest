@@ -21,7 +21,12 @@ exports.getToDo = async (req, res, next) => {
 exports.getToDoById = async (req, res, next) => {
   try {
   const findToDo = await todoModel.findById(req.params.todoId)
+  if (findToDo) {
   res.json(findToDo)
+  }
+  else {
+    res.status(404).send
+  }
   } catch(err) {
     next(err)
   }

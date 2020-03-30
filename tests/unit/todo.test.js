@@ -34,13 +34,19 @@ describe('ToDoController.getToDobyId', () => {
     expect(res._getJSONData()).toStrictEqual(toDoMock) 
     expect(res._isEndCalled()).toBeTruthy();
   })
-  it('shows error message when unable to find toDo ID', async () => {
+  it('shows error message when there is error', async () => {
     const errorMessage = { message: "Unable to find any toDoId" };
     const rejectPromise = Promise.reject(errorMessage)
     ToDoModel.findById.mockReturnValue(rejectPromise)
     await ToDoController.getToDoById(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
   })
+  it('returns 404 when unable to find toDoId', async () => {
+    ToDoModel.findById.mockReturnValue(null)
+    await ToDoController.getToDoById(req, res, next);
+    expect(res.statusCode).toBe(404)
+    expect(res._isEndCalled).toBeTruthy()
+  } )
 })
 
 describe('ToDoController.getToDo', () => {
