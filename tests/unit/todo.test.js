@@ -26,6 +26,14 @@ describe('ToDoController.getToDobyId', () => {
     await ToDoController.getToDoById(req, res, next)
     expect(ToDoModel.findById).toBeCalledWith('5e81349fa145485171733cd1')
   })
+
+  it('should return json body and status code 200', async () => {
+    ToDoModel.findById.mockReturnValue(toDoMock)
+    await ToDoController.getToDoById(req, res, next)
+    expect(res.statusCode).toBe(200)
+    expect(res._getJSONData()).toStrictEqual(toDoMock) 
+    expect(res._isEndCalled()).toBeTruthy();
+  })
 })
 
 describe('ToDoController.getToDo', () => {
