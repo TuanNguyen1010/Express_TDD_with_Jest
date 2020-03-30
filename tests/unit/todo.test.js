@@ -47,6 +47,12 @@ it('shows error message when trying to update todo', async () => {
     await ToDoController.updateToDo(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
   })
+  it('returns 404 when update unable to find toDoId', async () => {
+    ToDoModel.findByIdAndUpdate.mockReturnValue(null)
+    await ToDoController.updateToDo(req, res, next);
+    expect(res.statusCode).toBe(404)
+    expect(res._isEndCalled).toBeTruthy()
+  })
 }) 
 
 describe('ToDoController.getToDobyId', () => {

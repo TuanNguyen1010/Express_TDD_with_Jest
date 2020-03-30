@@ -22,9 +22,9 @@ exports.getToDoById = async (req, res, next) => {
   try {
     const findToDo = await todoModel.findById(req.params.todoId)
     if (findToDo) {
-    res.json(findToDo)
-    } else {
-    res.status(404).send()
+      res.json(findToDo)
+      } else {
+      res.status(404).send()
     }
   } catch(err) {
     next(err)
@@ -32,11 +32,18 @@ exports.getToDoById = async (req, res, next) => {
 
   exports.updateToDo = async (req, res, next) => {
     try {
-    const updateToDo = await todoModel.findByIdAndUpdate(req.params.todoId, req.body, {
+    const updateToDo = await todoModel.findByIdAndUpdate(
+      req.params.todoId, 
+      req.body, 
+      {
       new: true,
       useFindAndModify: false
     })
-    res.json(updateToDo)
+    if (updateToDo) {
+    res.json(updateToDo)}
+    else {
+      res.status(404).send()
+    }
     } catch(err) {
       next(err)
     }
