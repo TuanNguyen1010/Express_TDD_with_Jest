@@ -7,6 +7,7 @@ const toDoMock = require('../mocks/toDoMock')
 ToDoModel.create = jest.fn()
 ToDoModel.find = jest.fn()
 ToDoModel.findById = jest.fn()
+ToDoModel.findByIdAndUpdate = jest.fn()
 
 let req, res, next;
 
@@ -16,11 +17,20 @@ beforeEach(() => {
   next = jest.fn();
 })
 
-describe("ToDoController.updateToDo", () => {
+describe("ToDoController.findByIdAndUpdate", () => {
   it('have updateToDo funciton', () => {
     expect(typeof ToDoController.updateToDo).toBe("function")
   })
-})
+  it("calls the findByID and update method on todo model", async () => {
+    req.params.todoId = '5e81349fa145485171733cd1'
+    req.body = createToDoMock
+    await ToDoController.updateToDo(req, res, next)
+    expect(ToDoModel.findByIdAndUpdate).toHaveBeenCalledWith("5e81349fa145485171733cd1", createToDoMock, {
+      new: true, 
+      useFindAndModify: false
+    })
+  })
+}) 
 
 describe('ToDoController.getToDobyId', () => {
   it('should have getToDoById function', () => {
