@@ -3,6 +3,8 @@ const app = require('../../app.js');
 const createToDoMock = require("../mocks/createToDoMock.json");
 const endpointUrl = "/todos/";
 
+let firstTodo, newToDoId
+
 describe(endpointUrl, () => {
   it("GET" + endpointUrl, async () => {
     const response = await request(app)
@@ -31,6 +33,7 @@ describe(endpointUrl, () => {
     expect(response.statusCode).toBe(201);
     expect(response.body.title).toBe(createToDoMock.title);
     expect(response.body.done).toBe(createToDoMock.done);
+    newToDoId = response.body._id
   })
 
   it('should return error 500 on malformed data with POST' + endpointUrl,
@@ -42,5 +45,14 @@ describe(endpointUrl, () => {
     expect(response.body).toStrictEqual({
       message: 
       "todo validation failed: done: Path `done` is required."})
+  })
+  it("PUT" + endpointUrl , async () => {
+    const updatetoDo = {title: "changed", done: true}
+    const response = await request(app)
+    .put(endpointUrl + newToDoId)
+    .send(updatetoDo)
+    expect(response.statusCode).toBe(200)
+    expect(response.body.title).toBe(updatetoDo.title)
+    expect(response.body.done).toBe(updatetoDo.done)
   })
 })
