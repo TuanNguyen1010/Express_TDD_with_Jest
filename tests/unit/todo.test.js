@@ -20,8 +20,13 @@ beforeEach(() => {
 })
 
 describe('ToDoController.findbyIdAndDelete', () => {
-  it('has a delete function', () => {
+  it('have a delete function', () => {
     expect(typeof ToDoController.delete).toBe('function')
+  })
+  it('calls the findByIdAndDelete method in model', async () => {
+    req.params.todoId = todoId;
+    await ToDoController.delete(req, res, next)
+    expect(ToDoModel.findByIdAndDelete).toHaveBeenCalledWith(todoId)
   })
 })
 

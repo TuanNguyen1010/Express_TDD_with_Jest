@@ -49,4 +49,6 @@ exports.getToDoById = async (req, res, next) => {
     }
   }
 
-  exports.delete = () => {}
+  exports.delete = async (req, res, next) => {
+    todoModel.findByIdAndDelete(req.params.todoId)
+  }
