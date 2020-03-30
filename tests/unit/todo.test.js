@@ -31,6 +31,15 @@ describe("ToDoController.findByIdAndUpdate", () => {
       useFindAndModify: false
     })
   })
+  it('returns response code 200', async () => { 
+    req.params.todoId = todoId
+    req.body = createToDoMock
+    ToDoModel.findByIdAndUpdate.mockReturnValue(createToDoMock)
+    await ToDoController.updateToDo(req, res, next)
+    expect(res.statusCode).toBe(200)
+    expect(res._getJSONData()).toStrictEqual(createToDoMock) 
+    expect(res._isEndCalled()).toBeTruthy();
+  }) 
 }) 
 
 describe('ToDoController.getToDobyId', () => {
