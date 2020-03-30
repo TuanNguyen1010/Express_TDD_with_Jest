@@ -24,9 +24,8 @@ exports.getToDoById = async (req, res, next) => {
     if (findToDo) {
     res.json(findToDo)
     } else {
-    res.status(404).send
+    res.status(404).send()
     }
   } catch(err) {
     next(err)
-  }
-}
+  }}
