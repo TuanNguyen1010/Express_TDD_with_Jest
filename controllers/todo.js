@@ -48,3 +48,5 @@ exports.getToDoById = async (req, res, next) => {
       next(err)
     }
   }
+
+  exports.delete = () => {}

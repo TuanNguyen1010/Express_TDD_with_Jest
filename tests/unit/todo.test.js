@@ -9,6 +9,7 @@ ToDoModel.create = jest.fn()
 ToDoModel.find = jest.fn()
 ToDoModel.findById = jest.fn()
 ToDoModel.findByIdAndUpdate = jest.fn()
+ToDoModel.findByIdAndDelete = jest.fn()
 
 let req, res, next;
 
@@ -16,6 +17,12 @@ beforeEach(() => {
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
   next = jest.fn();
+})
+
+describe('ToDoController.findbyIdAndDelete', () => {
+  it('has a delete function', () => {
+    expect(typeof ToDoController.delete).toBe('function')
+  })
 })
 
 describe("ToDoController.findByIdAndUpdate", () => {
