@@ -3,6 +3,7 @@ const ToDoModel = require('../../model/todo')
 const httpMocks = require('node-mocks-http')
 const createToDoMock = require('../mocks/createToDoMock')
 const toDoMock = require('../mocks/toDoMock')
+const todoId = "5e81349fa145485171733cd1"
 
 ToDoModel.create = jest.fn()
 ToDoModel.find = jest.fn()
@@ -22,10 +23,10 @@ describe("ToDoController.findByIdAndUpdate", () => {
     expect(typeof ToDoController.updateToDo).toBe("function")
   })
   it("calls the findByID and update method on todo model", async () => {
-    req.params.todoId = '5e81349fa145485171733cd1'
+    req.params.todoId = todoId
     req.body = createToDoMock
     await ToDoController.updateToDo(req, res, next)
-    expect(ToDoModel.findByIdAndUpdate).toHaveBeenCalledWith("5e81349fa145485171733cd1", createToDoMock, {
+    expect(ToDoModel.findByIdAndUpdate).toHaveBeenCalledWith(todoId, createToDoMock, {
       new: true, 
       useFindAndModify: false
     })
@@ -38,9 +39,9 @@ describe('ToDoController.getToDobyId', () => {
   })
 
   it('should call the findById method on todo Model', async () => {
-    req.params.todoId = '5e81349fa145485171733cd1'
+    req.params.todoId = todoId
     await ToDoController.getToDoById(req, res, next)
-    expect(ToDoModel.findById).toBeCalledWith('5e81349fa145485171733cd1')
+    expect(ToDoModel.findById).toBeCalledWith(todoId)
   })
 
   it('return json body and status code 200', async () => {
