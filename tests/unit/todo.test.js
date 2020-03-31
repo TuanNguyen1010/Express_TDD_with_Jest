@@ -28,6 +28,14 @@ describe('ToDoController.findbyIdAndDelete', () => {
     await ToDoController.delete(req, res, next)
     expect(ToDoModel.findByIdAndDelete).toHaveBeenCalledWith(todoId)
   })
+  it('returns 200 status code', async () => {
+    req.params.todoId = todoId;
+    ToDoModel.findByIdAndDelete.mockReturnValue(todoId)
+    await ToDoController.delete(req, res, next)
+    expect(res.statusCode).toBe(200)
+    expect(res._getJSONData()).toStrictEqual(todoId) 
+    expect(res._isEndCalled()).toBeTruthy();
+  })
 })
 
 describe("ToDoController.findByIdAndUpdate", () => {
