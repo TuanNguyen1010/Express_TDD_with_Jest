@@ -36,6 +36,13 @@ describe('ToDoController.findbyIdAndDelete', () => {
     expect(res._getJSONData()).toStrictEqual(todoId) 
     expect(res._isEndCalled()).toBeTruthy();
   })
+  it('returns message when error to delete', async () => {
+    const errorMessage = { message: 'Error in deleting'}
+    const rejectPromise = Promise.reject(errorMessage)
+    ToDoModel.findByIdAndDelete.mockReturnValue(rejectPromise)
+    await ToDoController.delete(req, res, next)
+    expect(next).toBeCalledWith(errorMessage)
+  })
 })
 
 describe("ToDoController.findByIdAndUpdate", () => {

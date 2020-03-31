@@ -50,6 +50,10 @@ exports.getToDoById = async (req, res, next) => {
   }
 
   exports.delete = async (req, res, next) => {
-    const deleteToDo = todoModel.findByIdAndDelete(req.params.todoId)
+    try {
+    const deleteToDo = await todoModel.findByIdAndDelete(req.params.todoId)
     res.json(deleteToDo)
+    } catch (err) {
+      next(err)
+    }
   }
