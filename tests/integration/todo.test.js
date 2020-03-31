@@ -55,4 +55,14 @@ describe(endpointUrl, () => {
     expect(response.body.title).toBe(updatetoDo.title)
     expect(response.body.done).toBe(updatetoDo.done)
   })
+
+  it("Delete" + endpointUrl , async () => {
+    const updatetoDo = {title: "changed", done: true}
+    const response = await request(app)
+    .delete(endpointUrl + newToDoId)
+    .send()
+    expect(response.statusCode).toBe(200)
+    expect(response.body.title).toBe(updatetoDo.title)
+    expect(response.body.done).toBe(updatetoDo.done)
+  })
 })
