@@ -43,6 +43,12 @@ describe('ToDoController.findbyIdAndDelete', () => {
     await ToDoController.delete(req, res, next)
     expect(next).toBeCalledWith(errorMessage)
   })
+  it('returns 404 when unable to find Id to delete', async () => {
+    ToDoModel.findByIdAndDelete.mockReturnValue(null)
+    await ToDoController.delete(req, res, next);
+    expect(res.statusCode).toBe(404)
+    expect(res._isEndCalled).toBeTruthy()
+  })
 })
 
 describe("ToDoController.findByIdAndUpdate", () => {

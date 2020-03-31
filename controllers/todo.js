@@ -52,7 +52,11 @@ exports.getToDoById = async (req, res, next) => {
   exports.delete = async (req, res, next) => {
     try {
     const deleteToDo = await todoModel.findByIdAndDelete(req.params.todoId)
-    res.json(deleteToDo)
+    if (deleteToDo) {
+    res.json(deleteToDo)}
+    else {
+      res.status(404).send()
+    }
     } catch (err) {
       next(err)
     }
